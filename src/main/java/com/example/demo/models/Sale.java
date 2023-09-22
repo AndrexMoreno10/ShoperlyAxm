@@ -7,38 +7,38 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Sale {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long code;
+	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_sale_user")
     private User user;
+    
+    
     private Date date_sale;
-    private List<Product> products;
     private double total_value;
     
-    
-    public Sale(Long code, User user, Date date_sale, List<Product> products, double total_value) {
-		super();
-		this.code = code;
-		this.user = user;
-		this.date_sale = date_sale;
-		this.products = products;
-		this.total_value = total_value;
-	}
+
 
 	public Sale() {
 		super();
 	}
 
-	public Long getCode() {
-		return code;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCode(Long code) {
-		this.code = code;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public User getUser() {
@@ -55,14 +55,6 @@ public class Sale {
 
 	public void setDate_sale(Date date_sale) {
 		this.date_sale = date_sale;
-	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
 	}
 
 	public double getTotal_value() {

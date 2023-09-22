@@ -13,43 +13,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.models.Product;
-import com.example.demo.services.ProductService;
+import com.example.demo.models.Shopping_Cart;
+import com.example.demo.services.ShoppingCartService;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/shopping_Cart")
 @CrossOrigin(origins = "http://localhost:4200")
-public class ProductController {
-	
+public class Shopping_CartController {
+
 	@Autowired
-	private ProductService productService;
+	private ShoppingCartService shoppingCartService;
 	
 	@GetMapping
-	public ResponseEntity<List<Product>> getAll() {
-        return ResponseEntity.ok(productService.getAll());
+	public ResponseEntity<List<Shopping_Cart>> getAll() {
+        return ResponseEntity.ok(shoppingCartService.getAll());
     }
 	
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getId(@PathVariable Long id) {
-        Product product = productService.getId(id);
+    public ResponseEntity<Shopping_Cart> getId(@PathVariable Long id) {
+        Shopping_Cart shoppingCart = shoppingCartService.getId(id);
         
-        if (product != null) {
-            return ResponseEntity.ok(product);
+        if (shoppingCart != null) {
+            return ResponseEntity.ok(shoppingCart);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
     
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody Product product) {
-        return ResponseEntity.ok(productService.save(product));
+    public ResponseEntity<Shopping_Cart> create(@RequestBody Shopping_Cart shopping_Cart) {
+        return ResponseEntity.ok(shoppingCartService.save(shopping_Cart));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        productService.delete(id);
+    	shoppingCartService.delete(id);
         return ResponseEntity.noContent().build();
     }
-    
-
+	
 }

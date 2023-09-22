@@ -13,43 +13,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.models.Product;
-import com.example.demo.services.ProductService;
+import com.example.demo.models.Category;
+import com.example.demo.services.CategoryService;
+
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/category")
 @CrossOrigin(origins = "http://localhost:4200")
-public class ProductController {
-	
+public class CategoryController {
+
 	@Autowired
-	private ProductService productService;
+	private CategoryService categoryService;
 	
 	@GetMapping
-	public ResponseEntity<List<Product>> getAll() {
-        return ResponseEntity.ok(productService.getAll());
+	public ResponseEntity<List<Category>> getAll() {
+        return ResponseEntity.ok(categoryService.getAll());
     }
 	
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getId(@PathVariable Long id) {
-        Product product = productService.getId(id);
+    public ResponseEntity<Category> getId(@PathVariable Long id) {
+    	Category category = categoryService.getId(id);
         
-        if (product != null) {
-            return ResponseEntity.ok(product);
+        if (category != null) {
+            return ResponseEntity.ok(category);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
     
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody Product product) {
-        return ResponseEntity.ok(productService.save(product));
+    public ResponseEntity<Category> create(@RequestBody Category category) {
+        return ResponseEntity.ok(categoryService.save(category));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        productService.delete(id);
+    	categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
-    
-
+	
 }

@@ -4,28 +4,39 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "products")
 public class Product {
 
-    public static final String AVAILABLE = "available";
-    public static final String NOT_AVAILABLE = "not_available";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
 	private String name;
 	private String description;
 	private double price;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_supplier_product")
 	private Supplier supplier;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_category_product")
 	private Category category;
 	private String state;
 	private String url;
 
-	
-	public Product(String name, String description, double price, Supplier supplier, Category category, String state,
-			String url) {
+
+	public Product() {
+	    super();
+	}
+
+	public Product(Long id, String name, String description, double price, Supplier supplier, Category category,
+			String state, String url) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
@@ -36,11 +47,16 @@ public class Product {
 	}
 
 
-	public Product() {
-	    super();
+
+
+	public Long getId() {
+		return id;
 	}
-	
-	
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 
 	public String getName() {
@@ -103,16 +119,6 @@ public class Product {
 	}
 
 
-	public static String getAvailable() {
-		return AVAILABLE;
-	}
-
-
-	public static String getNotAvailable() {
-		return NOT_AVAILABLE;
-	}
-
-
 	public String getUrl() {
 		return url;
 	}
@@ -121,7 +127,7 @@ public class Product {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
 	
 
 
