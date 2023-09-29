@@ -18,6 +18,7 @@ public class Product {
 	private String description;
 	private double price;
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "id_supplier_product")
 	private Supplier supplier;
@@ -25,6 +26,7 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "id_category_product")
 	private Category category;
+	
 	private String state;
 	private String url;
 
@@ -32,6 +34,7 @@ public class Product {
 	public Product() {
 	    super();
 	}
+
 
 	public Product(Long id, String name, String description, double price, Supplier supplier, Category category,
 			String state, String url) {
@@ -44,8 +47,8 @@ public class Product {
 		this.category = category;
 		this.state = state;
 		this.url = url;
-	}
 
+	}
 
 
 

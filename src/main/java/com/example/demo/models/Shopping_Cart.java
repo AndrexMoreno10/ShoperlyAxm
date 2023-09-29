@@ -24,11 +24,15 @@ public class Shopping_Cart {
 	@ManyToOne
 	@JoinColumn(name = "id_shoppingcart_product")
     private Product product;
+	
+	private int quantity;
     
     
 	public Shopping_Cart() {
 		super();
 	}
+	
+	
 
 
 	public User getUser() {

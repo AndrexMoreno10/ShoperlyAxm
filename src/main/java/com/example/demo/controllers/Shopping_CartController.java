@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.models.Product;
 import com.example.demo.models.Shopping_Cart;
 import com.example.demo.services.ShoppingCartService;
 
@@ -21,6 +23,8 @@ import com.example.demo.services.ShoppingCartService;
 @CrossOrigin(origins = "http://localhost:4200")
 public class Shopping_CartController {
 
+	private List<Product> cart = new ArrayList<>();
+	
 	@Autowired
 	private ShoppingCartService shoppingCartService;
 	
@@ -50,5 +54,38 @@ public class Shopping_CartController {
     	shoppingCartService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    
+    
+    @PostMapping("/add")
+    public ResponseEntity<String> addToCart(@RequestBody Product product) {
+        cart.add(product);
+        return ResponseEntity.ok("Producto agregado al carrito");
+    }
+
+    @GetMapping("/items")
+    public ResponseEntity<List<Product>> getCartItems() {
+        return ResponseEntity.ok(cart);
+    }
+    
+    public ResponseEntity<String> removeFromCart(Long productId) {
+        Product productToRemove = null;
+        
+        for (Product product : cart) {
+            if (product.getId().equals(productId)) {
+                productToRemove = product;
+                break; 
+            }
+        }
+
+        if (productToRemove != null) {
+            cart.remove(productToRemove);
+            return ResponseEntity.ok("Producto eliminado del carrito");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    
+    
 	
 }

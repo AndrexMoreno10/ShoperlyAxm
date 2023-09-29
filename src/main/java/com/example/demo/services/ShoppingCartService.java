@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.models.User;
+import com.example.demo.models.Product;
 import com.example.demo.models.Shopping_Cart;
 import com.example.demo.repository.IShoppingCartRepository;
 
@@ -30,6 +31,7 @@ public class ShoppingCartService {
    public void delete(Long id) {
 	   shoppingCartRepository.deleteById(id);
   }
+   
    
    public List<Shopping_Cart> findByUser(Long id) {
 	   User user = new User();
