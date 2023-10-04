@@ -8,6 +8,5 @@ import com.example.demo.models.Shopping_Cart;
 import com.example.demo.models.User;
 
 public interface IShoppingCartRepository extends JpaRepository<Shopping_Cart, Long>{
-
 	List<Shopping_Cart>findByUser(User user);
 }
