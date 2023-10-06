@@ -3,12 +3,13 @@ package com.example.demo.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.demo.models.Category;
 import com.example.demo.repository.ICategoryRepository;
 
 
-@Service
+@Service 
 public class CategoryService {
 	
 	@Autowired
@@ -29,5 +30,16 @@ public class CategoryService {
    public void delete(Long id) {
 	   categoryRepo.deleteById(id);
   }
+   
+   public Category put(Long id , Category newCategory) {
+	   Category aux = this.getId(id);
+       if (aux != null) {
+       	aux.setName(newCategory.getName());
+       	this.save(newCategory);
+           return aux;
+       } else {
+           return null;
+       }
+   }
    
 }

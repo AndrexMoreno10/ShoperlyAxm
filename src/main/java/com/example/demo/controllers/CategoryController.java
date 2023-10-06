@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.models.Category;
+import com.example.demo.models.Supplier;
 import com.example.demo.services.CategoryService;
 
 
@@ -44,6 +46,16 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<Category> create(@RequestBody Category category) {
         return ResponseEntity.ok(categoryService.save(category));
+    }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> putCategory(@PathVariable Long id, @RequestBody Category newCategory) {
+    	Category aux = categoryService.put(id, newCategory);
+        if (aux != null) {
+            return ResponseEntity.ok(categoryService.save(aux));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
