@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.example.demo.models.Login;
 import com.example.demo.models.User;
 import com.example.demo.services.UserService;
 
@@ -73,5 +73,12 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
     
+    
+    
+    @PostMapping
+    public ResponseEntity<User> login(@RequestBody Login login) {
+        return ResponseEntity.ok(userService.login(login));
+    }
+
 	
 }
