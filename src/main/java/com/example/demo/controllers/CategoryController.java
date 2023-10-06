@@ -52,7 +52,7 @@ public class CategoryController {
     public ResponseEntity<Category> putCategory(@PathVariable Long id, @RequestBody Category newCategory) {
     	Category aux = categoryService.put(id, newCategory);
         if (aux != null) {
-            return ResponseEntity.ok(categoryService.save(aux));
+            return ResponseEntity.ok(aux);
         } else {
             return ResponseEntity.notFound().build();
         }

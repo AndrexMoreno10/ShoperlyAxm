@@ -32,10 +32,10 @@ public class CategoryService {
   }
    
    public Category put(Long id , Category newCategory) {
-	   Category aux = this.getId(id);
+	   Category aux = categoryRepo.findById(id).orElse(null);
        if (aux != null) {
        	aux.setName(newCategory.getName());
-       	this.save(newCategory);
+       	this.save(aux);
            return aux;
        } else {
            return null;
