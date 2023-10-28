@@ -8,11 +8,9 @@ public class Login {
 	private String username;
 	
 	public Login() {
-		super();
 	}
 	
 	public Login(String password, String username) {
-		super();
 		this.password = password;
 		this.username = username;
 	}

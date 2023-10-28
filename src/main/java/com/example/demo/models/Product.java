@@ -29,6 +29,7 @@ public class Product {
 	
 	private String state;
 	private String url;
+	private double quantity;
 
 
 	public Product() {
@@ -36,8 +37,11 @@ public class Product {
 	}
 
 
+
+
+
 	public Product(Long id, String name, String description, double price, Supplier supplier, Category category,
-			String state, String url) {
+			String state, String url, double quantity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -47,8 +51,10 @@ public class Product {
 		this.category = category;
 		this.state = state;
 		this.url = url;
-
+		this.quantity = quantity;
 	}
+
+
 
 
 
@@ -130,6 +136,17 @@ public class Product {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	public double getQuantity() {
+		return quantity;
+	}
+
+
+	public void setQuantity(double quantity) {
+		this.quantity = quantity;
+	}
+	
+	
 
 	
 

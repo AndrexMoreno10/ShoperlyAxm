@@ -1,9 +1,13 @@
 package com.example.demo.controllers;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,19 +16,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import com.example.demo.config.CloudinaryConfig;
 import com.example.demo.models.Product;
 import com.example.demo.models.Supplier;
+import com.example.demo.repository.IProductRepository;
 import com.example.demo.services.ProductService;
+import com.example.demo.utils.BillPdf;
+import com.lowagie.text.DocumentException;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/products")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
+
 	
 	@Autowired
 	private ProductService productService;
+	
+    
+    @Autowired
+    private CloudinaryConfig cloudc;
 	
 	@GetMapping
 	public ResponseEntity<List<Product>> getAll() {
@@ -71,11 +90,47 @@ public class ProductController {
             aux.setCategory(newProduct.getCategory());
             aux.setState(newProduct.getState());
             aux.setUrl(newProduct.getUrl());
+            aux.setQuantity(newProduct.getQuantity());
             
             return ResponseEntity.ok(productService.save(aux));
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+    
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProductsByName(@RequestParam String name) {
+        List<Product> products = productService.searchProductsByName(name);
+        return ResponseEntity.ok(products);
+    }
+    
+    @GetMapping("/export/pdf")
+	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=factura.pdf";
+		response.setHeader(headerKey, headerValue);
+
+		BillPdf  exporter = new BillPdf();
+		exporter.export(response);
+
+	}
+    
+
+    @PostMapping("/image-rest")
+    public String addProducto(Product product, BindingResult result, Model model, @RequestParam("file") MultipartFile file) {
+        System.out.println("SI ESTA ENTRANDO");
+        try {
+            Map<?, ?> uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+            System.out.println(uploadResult.get("url").toString());
+            return uploadResult.get("url").toString();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "Error al cargar la imagen";
+        }
+    }
+
 
 }

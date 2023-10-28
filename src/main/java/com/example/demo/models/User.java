@@ -17,10 +17,14 @@ public class User {
 	private String address;
 	private String password;
 	private String username;
+	private boolean isAdmin;
 	
 	public User() {
 		super();
 	}
+
+	
+
 
 	public User(Long id, String name, int age, String email, String phone, String address, String password,
 			String username) {
@@ -33,8 +37,8 @@ public class User {
 		this.address = address;
 		this.password = password;
 		this.username = username;
+		this.isAdmin = false;
 	}
-
 
 
 	public String getName() {
@@ -100,6 +104,18 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
+	
 
 
 }

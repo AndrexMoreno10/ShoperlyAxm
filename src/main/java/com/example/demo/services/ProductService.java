@@ -37,4 +37,8 @@ public class ProductService {
 	   return productRepo.findByCategory(category);
 		
 	}
+   
+   public List<Product> searchProductsByName(String name) {
+       return productRepo.findByName(name);
+   }
 }

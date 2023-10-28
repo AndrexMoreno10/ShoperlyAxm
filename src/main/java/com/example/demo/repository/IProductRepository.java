@@ -12,5 +12,6 @@ import com.example.demo.models.Product;
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long>{
 	List<Product> findByCategory(Category category);
+	 List<Product> findByName(String name);
 
 }

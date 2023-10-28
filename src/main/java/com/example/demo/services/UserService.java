@@ -35,7 +35,7 @@ public class UserService {
    
    public User login (Login login) {
 	   List<User> aux = userRepository.login(login.getUsername(), login.getPassword());
-	   return aux.get(0) != null ? aux.get(0) : null;
+	   return !aux.isEmpty() ? aux.get(0) : null;
    }
    
 }

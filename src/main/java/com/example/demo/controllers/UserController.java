@@ -2,6 +2,8 @@ package com.example.demo.controllers;
 
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -75,9 +77,16 @@ public class UserController {
     
     
     
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody Login login) {
-        return ResponseEntity.ok(userService.login(login));
+
+    	User user = userService.login(login);
+    	if(user == null) {
+    		return ResponseEntity.notFound().build();
+    	}else {
+    		return ResponseEntity.ok(user);
+    	}
+    	
     }
 
 	
