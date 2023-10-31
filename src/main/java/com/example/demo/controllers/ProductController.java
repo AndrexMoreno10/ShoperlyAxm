@@ -28,6 +28,7 @@ import com.example.demo.models.Supplier;
 import com.example.demo.repository.IProductRepository;
 import com.example.demo.services.ProductService;
 import com.example.demo.utils.BillPdf;
+import com.example.demo.utils.UrlResponse;
 import com.lowagie.text.DocumentException;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -63,7 +64,14 @@ public class ProductController {
     
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody Product product) {
+    	System.out.println(product.getUrl());
         return ResponseEntity.ok(productService.save(product));
+    }
+    
+    @PostMapping("/test")
+    public void test(@RequestBody UrlResponse url) {
+    	System.out.println(url.getUrl() +"holi");
+        
     }
 
     @DeleteMapping("/{id}")
@@ -120,17 +128,15 @@ public class ProductController {
     
 
     @PostMapping("/image-rest")
-    public String addProducto(Product product, BindingResult result, Model model, @RequestParam("file") MultipartFile file) {
-        System.out.println("SI ESTA ENTRANDO");
+    public ResponseEntity<UrlResponse> addProducto(@RequestParam("file") MultipartFile file) throws Exception {
         try {
-            Map<?, ?> uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+            Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
             System.out.println(uploadResult.get("url").toString());
-            return uploadResult.get("url").toString();
+            return ResponseEntity.ok(new UrlResponse(uploadResult.get("url").toString())) ;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "Error al cargar la imagen";
+            throw e;
         }
     }
-
 
 }

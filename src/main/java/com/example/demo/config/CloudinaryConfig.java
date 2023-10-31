@@ -28,8 +28,8 @@ public class CloudinaryConfig {
             return cloudinary.uploader().upload(file, options);
         }
         catch (IOException e) {
-            e.printStackTrace();
-            return null;
+        	return null;
+            //throw new RuntimeException("No se pudo guardar el archivo en la nube");
         }
     }
 
