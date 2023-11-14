@@ -1,0 +1,13 @@
+.card img {
+   margin-left: 50px;
+  
+    
+}
+
+.containerProductos{
+   display: flex;
+   flex-wrap: wrap;
+   width: 80vw;
+   /* margin-right: 300px; */
+  
+}

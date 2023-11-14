@@ -1,0 +1,49 @@
+<div class="containerProductos">
+  <div *ngFor="let product of products">
+    <div class="container">
+      <section class="mx-auto my-2" style="max-width: 23rem;" style="padding-left: 50px;">
+
+        <div class="card" style="padding-left: 80px;" style="width: 100%;">
+          <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+            <img src="{{product.url}}" class="img-fluid" style="width: 200px;" />
+            <a href="#!">
+              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            </a>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold"><a [routerLink]="['/product', product.id]">{{product.name}}</a></h5>
+            <ul class="list-unstyled list-inline mb-0">
+              <li class="list-inline-item me-0">
+                <i class="fas fa-star text-warning fa-xs"> </i>
+              </li>
+              <li class="list-inline-item me-0">
+                <i class="fas fa-star text-warning fa-xs"></i>
+              </li>
+              <li class="list-inline-item me-0">
+                <i class="fas fa-star text-warning fa-xs"></i>
+              </li>
+              <li class="list-inline-item me-0">
+                <i class="fas fa-star text-warning fa-xs"></i>
+              </li>
+              <li class="list-inline-item">
+                <i class="fas fa-star-half-alt text-warning fa-xs"></i>
+              </li>
+              <li class="list-inline-item">
+                <p class="text-muted">4.5 (413)</p>
+              </li>
+            </ul>
+            <p class="mb-2">$ {{product.price}}</p>
+            <p class="card-text">
+              {{product.description}}
+            </p>
+            <div class="d-flex">
+              <a class="btn btn-danger" style="width: 60%;" style="height: 30%;">Comprar</a>
+              <a (click)="addToCart(product)" class="btn btn-primary" style="width: 40%;" style="height: 30%;"
+                style="margin-left: 20px;">Añadir al Carrito</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
