@@ -45,10 +45,24 @@ public class ProductController {
     
     @Autowired
     private CloudinaryConfig cloudc;
+    
+    
+
 	
 	@GetMapping
 	public ResponseEntity<List<Product>> getAll() {
         return ResponseEntity.ok(productService.getAll());
+    }
+	
+    @GetMapping("/buy/{id}")
+    public ResponseEntity<String> buyProduct(@PathVariable Long id) {
+        boolean successful_purchase = productService.buyProduct(id);
+
+        if (successful_purchase) {
+            return ResponseEntity.ok("Compra exitosa");
+        } else {
+            return ResponseEntity.badRequest().body("Error en la compra. Producto no encontrado o cantidad insuficiente.");
+        }
     }
 	
     @GetMapping("/{id}")
@@ -68,11 +82,6 @@ public class ProductController {
         return ResponseEntity.ok(productService.save(product));
     }
     
-    @PostMapping("/test")
-    public void test(@RequestBody UrlResponse url) {
-    	System.out.println(url.getUrl() +"holi");
-        
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
