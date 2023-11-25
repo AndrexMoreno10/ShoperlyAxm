@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.models.Category;
 import com.example.demo.models.Product;
+import com.example.demo.models.Shopping_Cart;
 import com.example.demo.repository.IProductRepository;
 
 @Service
@@ -40,25 +41,8 @@ public class ProductService {
 	}
    
    public List<Product> searchProductsByName(String name) {
-       return productRepo.findByName(name);
+       return productRepo.findByNameContaining(name);
    }
-   
-   public boolean buyProduct(Long productId) {
-       Optional<Product> optionalProduct = productRepo.findById(productId);
 
-       if (optionalProduct.isPresent()) {
-           Product product = optionalProduct.get();
-           
-           if (product.getQuantity() > 0) {
-               product.setQuantity(product.getQuantity() - 1);
-               productRepo.save(product);
-               return true; 
-           } else {
-               return false;
-           }
-       } else {
-           return false;
-       }
-   }
 
 }

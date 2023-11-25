@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 @Entity(name = "products")
 public class Product {
@@ -29,7 +30,11 @@ public class Product {
 	
 	private String state;
 	private String url;
-	private double quantity;
+	private int quantity;
+	
+	@Transient
+	private int quantityclient;
+	
 
 
 	public Product() {
@@ -37,11 +42,9 @@ public class Product {
 	}
 
 
-
-
-
+	
 	public Product(Long id, String name, String description, double price, Supplier supplier, Category category,
-			String state, String url, double quantity) {
+			String state, String url, int quantity, int quantityclient) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -52,6 +55,14 @@ public class Product {
 		this.state = state;
 		this.url = url;
 		this.quantity = quantity;
+		this.quantityclient = quantityclient;
+	}
+
+
+
+	public Product(Long id) {
+		super();
+		this.id = id;
 	}
 
 
@@ -126,6 +137,8 @@ public class Product {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
+	
 
 
 	public String getUrl() {
@@ -137,12 +150,12 @@ public class Product {
 		this.url = url;
 	}
 
-	public double getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
 
-	public void setQuantity(double quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 	

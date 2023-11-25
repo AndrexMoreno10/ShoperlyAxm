@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.models.Category;
@@ -12,6 +13,6 @@ import com.example.demo.models.Product;
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long>{
 	List<Product> findByCategory(Category category);
-	 List<Product> findByName(String name);
+	List<Product> findByNameContaining(String name);
 
 }

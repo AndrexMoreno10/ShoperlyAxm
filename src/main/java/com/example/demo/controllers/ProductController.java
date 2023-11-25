@@ -24,6 +24,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.demo.config.CloudinaryConfig;
 import com.example.demo.models.Product;
+import com.example.demo.models.Shopping_Cart;
 import com.example.demo.models.Supplier;
 import com.example.demo.repository.IProductRepository;
 import com.example.demo.services.ProductService;
@@ -46,23 +47,11 @@ public class ProductController {
     @Autowired
     private CloudinaryConfig cloudc;
     
-    
 
 	
 	@GetMapping
 	public ResponseEntity<List<Product>> getAll() {
         return ResponseEntity.ok(productService.getAll());
-    }
-	
-    @GetMapping("/buy/{id}")
-    public ResponseEntity<String> buyProduct(@PathVariable Long id) {
-        boolean successful_purchase = productService.buyProduct(id);
-
-        if (successful_purchase) {
-            return ResponseEntity.ok("Compra exitosa");
-        } else {
-            return ResponseEntity.badRequest().body("Error en la compra. Producto no encontrado o cantidad insuficiente.");
-        }
     }
 	
     @GetMapping("/{id}")
@@ -113,12 +102,6 @@ public class ProductController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-    
-    @GetMapping("/search")
-    public ResponseEntity<List<Product>> searchProductsByName(@RequestParam String name) {
-        List<Product> products = productService.searchProductsByName(name);
-        return ResponseEntity.ok(products);
     }
     
     @GetMapping("/export/pdf")

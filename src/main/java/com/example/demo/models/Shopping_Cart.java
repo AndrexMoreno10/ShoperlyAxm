@@ -1,59 +1,43 @@
 package com.example.demo.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Transient;
+import jakarta.persistence.OneToMany;
 
-@Entity
+
+
 public class Shopping_Cart {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-	@ManyToOne
-	@JoinColumn(name = "id_shoppingcart_user")
-    private User user;
-    
-	@ManyToOne
-	@JoinColumn(name = "id_shoppingcart_product")
-    private Product product;
+	private List<CartItem> cartItems = new ArrayList<>();
 	
-	private int quantity;
-    
-    
+
+	public Shopping_Cart(List<CartItem> cartItems) {
+		super();
+		this.cartItems = cartItems;
+	}
+	
 	public Shopping_Cart() {
 		super();
 	}
-	
-	
 
-
-	public User getUser() {
-		return user;
+	public List<CartItem> getCartItems() {
+		return cartItems;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
 	}
 	
-	
-
     
+	
     
 
 }
